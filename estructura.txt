@@ -1,0 +1,14 @@
+discord-bot/
+├── commands/
+│   ├── createList.js
+│   ├── addItem.js
+│   ├── removeItem.js
+│   ├── deleteList.js
+│   ├── showLists.js
+│   └── showList.js
+├── db/
+│   └── database.js
+├── index.js
+├── deploy-commands.js
+├── config.json
+├── package.json
