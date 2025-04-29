@@ -51,11 +51,11 @@ Elimina una lista.
 
 1. Clona este repositorio en tu máquina local:
    ```bash
-   git clone https://github.com/jfcorobles/list-bot.git
+   git clone https://github.com/jfcorobles/discord-list-bot.git
    ```
 2. Accede a la carpeta del proyecto:
    ```bash
-   cd list-bot
+   cd discord-list-bot
    ```
 3. Instala las dependencias:
     ```bash
