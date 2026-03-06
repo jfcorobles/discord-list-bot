@@ -20,7 +20,7 @@ module.exports = {
       await createList(userId, guildId, title);
 
       return interaction.reply({
-        content: `✅ Lista creada con el título: **${title}**`,
+        content: `✅ Lista creada`,
         flags: [MessageFlags.Ephemeral]
       });
     } catch (error) {

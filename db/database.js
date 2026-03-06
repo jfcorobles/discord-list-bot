@@ -41,7 +41,7 @@ function createList(userId, guildId, title) {
 function getUserLists(userId, guildId) {
     return new Promise((resolve, reject) => {
         db.all(
-            `SELECT * FROM lists WHERE user_id = ? AND guild_id = ?`,
+            `SELECT * FROM lists WHERE user_id = ? AND guild_id = ? ORDER BY title`,
             [userId, guildId],
             (err, rows) => {
                 if (err) {

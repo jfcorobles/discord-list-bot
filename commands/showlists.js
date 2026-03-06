@@ -44,10 +44,14 @@ module.exports = {
                 const listDetails = await getListDetails(userId, guildId, listId);
                 if (listDetails) {
                     const listItems = await getListItems(listId);
-                    const itemsContent = listItems.map(item => item.content).join('\n') || 'No hay items en esta lista.';
+                    const itemsContent = listItems.map(item => `**${item.content}**`).join('\n') || 'No hay items en esta lista.';
 
                     await interaction.reply({
-                        content: `Detalles de la lista **${listDetails.title}**:\n${itemsContent}`,
+                        content: `📋 __**${listDetails.title}**__\n\n` +
+                            `${itemsContent
+                                .split('\n')
+                                .map((item, index) => `> ${index + 1}. ${item.trim()}`)
+                                .join('\n')}`,
                         flags: [MessageFlags.Ephemeral],
                     });
                 } else {
@@ -62,7 +66,11 @@ module.exports = {
                 if (userLists && userLists.length > 0) {
                     const listTitles = userLists.map(list => `**${list.title}** (ID: ${list.id})`).join('\n');
                     await interaction.reply({
-                        content: `Tus listas:\n${listTitles}`,
+                        content: `📚 __**Tus listas**__\n\n` +
+                            `${listTitles
+                                .split('\n')
+                                .map((title, index) => `> ${index + 1}. ${title.trim()}`)
+                                .join('\n')}`,
                         flags: [MessageFlags.Ephemeral],
                     });
                 } else {

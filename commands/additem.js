@@ -59,7 +59,7 @@ module.exports = {
             await addListItem(listId, content);
 
             await interaction.reply({
-                content: `✅ Item agregado a la lista **${list.title}**: ${content}`,
+                content: `✅ Item agregado`,
                 flags: [MessageFlags.Ephemeral],
             });
         } catch (error) {
