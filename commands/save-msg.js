@@ -51,10 +51,11 @@ module.exports = {
             const javList = userLists.find(l => l.title.toLowerCase() === 'javs');
             const nhList = userLists.find(l => l.title.toLowerCase() === 'nh');
             const chiksList = userLists.find(l => l.title.toLowerCase() === 'chiks');
+            const otherList = userLists.find(l => l.title.toLowerCase() === 'other');
 
-            if (!zeldaList && !javList && !nhList && !chiksList) {
+            if (!zeldaList && !javList && !nhList && !chiksList && !otherList) {
                 return interaction.editReply({
-                    content: '❌ No se encontraron las listas "zelda", "JAVS", "nH" ni "Chiks". Por favor, crea al menos una.',
+                    content: '❌ No se encontraron las listas "zelda", "JAVS", "nH", "Chiks" ni "Other". Por favor, crea al menos una.',
                 });
             }
 
@@ -65,6 +66,7 @@ module.exports = {
             let javCount = 0;
             let nhCount = 0;
             let chiksCount = 0;
+            let otherCount = 0;
 
             const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/gi;
             const javRegex = /\b[a-zA-Z0-9]+-[0-9]+\b/i;
@@ -131,6 +133,15 @@ module.exports = {
                         }
                         continue;
                     }
+
+                    // 5. Fallback: Otros
+                    if (otherList) {
+                        try {
+                            await addListItem(otherList.id, content);
+                            otherCount++;
+                            try { await msg.delete(); } catch (e) { console.error(`Error al borrar Otro (${msg.id}):`, e.message); }
+                        } catch (err) { console.error('Error al guardar en Other en DB:', err.message); }
+                    }
                 } catch (msgError) {
                     console.error(`Error fatal procesando mensaje ${msg.id}:`, msgError.message);
                     // El ciclo continúa con el siguiente mensaje
@@ -142,6 +153,7 @@ module.exports = {
             if (javCount > 0) responseParts.push(`🏷️ **${javCount}** códigos en **JAVS**`);
             if (nhCount > 0) responseParts.push(`📖 **${nhCount}** códigos en **nH**`);
             if (chiksCount > 0) responseParts.push(`👗 **${chiksCount}** en **Chiks**`);
+            if (otherCount > 0) responseParts.push(`📦 **${otherCount}** en **Other**`);
 
             if (responseParts.length > 0) {
                 const finalMsg = `✅ Proceso completado: ${responseParts.join(', ')}.`;
